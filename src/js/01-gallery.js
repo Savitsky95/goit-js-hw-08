@@ -2,17 +2,17 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { galleryItems } from './gallery-items';
 
-const galleryList = document.querySelector('.gallery')
+const galleryList = document.querySelector('.gallery');
 
-export function createGalleryItem(galleryItems) {
+function createGalleryItem(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `
- <li class="gallery__item">
-    <a class="gallery__link" href="${original}">
-      <img class="gallery__image" src="${preview}" alt="${description}" />
-    </a>
- </li>
- `
+            <li class="gallery__item">
+                <a class="gallery__link" href="${original}">
+                    <img class="gallery__image" src="${preview}" alt="${description}" />
+                </a>
+            </li>
+        `;
     }).join('');
 }
 
@@ -20,14 +20,13 @@ const galleryMarkup = createGalleryItem(galleryItems);
 
 galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
 
-galleryList.addEventListener('click', onGaleryItemsClick);
+galleryList.addEventListener('click', onGalleryItemsClick);
 
-
-function onGaleryItemsClick(e) {
-    e.preventDefault()
+function onGalleryItemsClick(e) {
+    e.preventDefault();
 }
 
-const gallery = new SimpleLightbox('.gallery__item > .gallery__link', {
+new SimpleLightbox('.gallery__item > .gallery__link', {
     captions: true,
     captionsData: 'alt',
     fadeSpeed: 250,

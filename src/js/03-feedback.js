@@ -1,4 +1,4 @@
-import throttle from 'lodash.throttle'
+import throttle from 'lodash.throttle';
 
 const feedbackForm = document.querySelector('.feedback-form');
 const emailInput = document.querySelector('input');
@@ -6,7 +6,7 @@ const messageArea = document.querySelector('textarea');
 
 const LOCALSTORAGE_KEY = "feedback-form-state";
 
-function onInput(e) {
+function onInput() {
   const formData = {
     email: emailInput.value,
     message: messageArea.value
@@ -16,9 +16,8 @@ function onInput(e) {
 
 const onThrottleInput = throttle(onInput, 500);
 
-emailInput.addEventListener('input', onThrottleInput);
-messageArea.addEventListener('input', onThrottleInput);
-feedbackForm.addEventListener("submit", onFormSubmit)
+feedbackForm.addEventListener('input', onThrottleInput);
+feedbackForm.addEventListener('submit', onFormSubmit);
 
 populateInputs();
 
@@ -30,7 +29,7 @@ function populateInputs() {
   }
 }
 
-function onFormSubmit(event)  {
+function onFormSubmit(event) {
   event.preventDefault();
   const mail = emailInput.value;
   const message = messageArea.value;
@@ -43,11 +42,10 @@ function onFormSubmit(event)  {
     console.log(formData);
 
     feedbackForm.reset();
+    localStorage.removeItem(LOCALSTORAGE_KEY);
+  } else {
+    alert('Всі поля форми повинні бути заповнені.');
+  }
 }
-else {
-    alert('Всі поля форми повинні бути заповнені.')
-}
-  localStorage.removeItem(LOCALSTORAGE_KEY);
-};
 
 
